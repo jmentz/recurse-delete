@@ -27,7 +27,7 @@ module RecurseDelete
   extend ActiveSupport::Concern
 
   def recurse_delete
-    delete_recursively self.class, self.id
+    ActiveRecord::Base.transaction { delete_recursively self.class, self.id }
   end
 
   def delete_recursively(parent_class, parent_ids)
